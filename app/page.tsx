@@ -1,103 +1,124 @@
+"use client";
+
+import { useEffect, useState } from "react";
 import Image from "next/image";
 
 export default function Home() {
-  return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm/6 text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2 tracking-[-.01em]">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-[family-name:var(--font-geist-mono)] font-semibold">
-              app/page.tsx
-            </code>
-            .
-          </li>
-          <li className="tracking-[-.01em]">
-            Save and see your changes instantly.
-          </li>
-        </ol>
+  const [isLoaded, setIsLoaded] = useState(false);
+  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+  useEffect(() => {
+    setIsLoaded(true);
+    
+    const handleMouseMove = (event: MouseEvent) => {
+      setMousePosition({
+        x: event.clientX,
+        y: event.clientY,
+      });
+    };
+
+    window.addEventListener("mousemove", handleMouseMove);
+    
+    return () => {
+      window.removeEventListener("mousemove", handleMouseMove);
+    };
+  }, []);
+
+  const handleRedirect = () => {
+    window.location.href = "https://sacraltrack.space";
+  };
+
+  return (
+    <div className="relative min-h-screen flex flex-col items-center justify-center px-4 overflow-hidden">
+      {/* Background gradient effect that follows mouse */}
+      <div 
+        className="absolute inset-0 opacity-50"
+        style={{
+          background: `radial-gradient(circle at ${mousePosition.x}px ${mousePosition.y}px, var(--accent-light) 0%, transparent 60%)`,
+          zIndex: -1,
+        }}
+      />
+      
+      {/* Animated background elements */}
+      <div className="absolute inset-0 z-[-1]">
+        {[...Array(5)].map((_, i) => (
+          <div
+            key={i}
+            className="absolute rounded-full opacity-20"
+            style={{
+              width: `${Math.random() * 200 + 50}px`,
+              height: `${Math.random() * 200 + 50}px`,
+              top: `${Math.random() * 100}%`,
+              left: `${Math.random() * 100}%`,
+              background: `linear-gradient(135deg, var(--accent-dark), var(--accent-purple))`,
+              animation: `float ${Math.random() * 10 + 10}s infinite ease-in-out`,
+              transform: `translateY(${Math.random() * 100 - 50}px)`,
+            }}
+          />
+        ))}
+      </div>
+      
+      <main className={`flex flex-col items-center max-w-3xl w-full transition-all duration-1000 ${isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
+        {/* Logo Area */}
+        <div className="flex flex-col items-center mb-12">
+          <h1 className="text-5xl md:text-7xl font-bold mb-6 text-center gradient-text">
+            SACRAL TRACK
+          </h1>
+          <div className="h-[2px] w-40 bg-gradient-to-r from-purple-800 to-purple-400 mb-6"></div>
+          <p className="text-xl text-center text-gray-300 mb-4 font-light">
+            Music Store & Social Network for Artists
+          </p>
+          <p className="text-center text-gray-400 max-w-md mb-10">
+            Connect with music artists, discover exclusive tracks, and join a community of sound producers, musicians, bands, DJs, and music lovers.
+          </p>
         </div>
+
+        {/* Audio wave visualization effect */}
+        <div className="flex justify-center space-x-1 mb-12">
+          {[...Array(20)].map((_, i) => (
+            <div
+              key={i}
+              className="w-1 bg-purple-500 rounded-full"
+              style={{
+                height: `${Math.sin(i * 0.5) * 20 + 30}px`,
+                animation: `eq ${Math.random() * 1 + 0.5}s ease-in-out infinite alternate`,
+                animationDelay: `${i * 0.05}s`,
+                opacity: 0.7,
+              }}
+            />
+          ))}
+        </div>
+
+        {/* CTA Button */}
+        <button
+          onClick={handleRedirect}
+          className="gradient-bg text-white font-medium py-4 px-10 rounded-full text-lg transition-all duration-300 transform hover:scale-105 hover:glow focus:outline-none pulse"
+        >
+          Enter Sacral Track
+        </button>
+        
+        <p className="mt-6 text-sm text-gray-500">
+          You will be redirected to sacraltrack.space
+        </p>
       </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
+
+      {/* Footer */}
+      <footer className="absolute bottom-4 text-center text-xs text-gray-600">
+        © {new Date().getFullYear()} Sacral Track. All rights reserved.
       </footer>
+
+      {/* CSS for animations */}
+      <style jsx>{`
+        @keyframes float {
+          0%, 100% { transform: translateY(0); }
+          50% { transform: translateY(-20px); }
+        }
+        
+        @keyframes eq {
+          0% { height: 5px; }
+          100% { height: 50px; }
+        }
+      `}</style>
     </div>
   );
 }

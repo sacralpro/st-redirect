@@ -1,36 +1,79 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Sacral Track Redirect
+
+A stylish single-page website serving as a landing page with a redirect button to [sacraltrack.space](https://sacraltrack.space). The website features a modern, dark theme with purple gradients and interactive elements inspired by the Sacral Track brand.
+
+## Features
+
+- Elegant dark theme with purple accent colors
+- Interactive UI with mouse-following gradient effects
+- Audio wave visualization animations
+- Responsive design that works on all devices
+- Smooth transitions and loading animations
+- Direct redirect button to sacraltrack.space
+
+## Tech Stack
+
+- Next.js 15
+- TypeScript
+- Tailwind CSS
+- React
 
 ## Getting Started
 
-First, run the development server:
+### Prerequisites
 
+- Node.js 18.17.0 or later
+
+### Installation
+
+1. Clone the repository
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+git clone https://github.com/yourusername/st-redirect.git
+cd st-redirect
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+2. Install dependencies
+```bash
+npm install
+```
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+3. Run the development server
+```bash
+npm run dev
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+4. Open [http://localhost:3000](http://localhost:3000) in your browser
 
-## Learn More
+## Production Build
 
-To learn more about Next.js, take a look at the following resources:
+To create a production build:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+```bash
+npm run build
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+To start the production server:
 
-## Deploy on Vercel
+```bash
+npm run start
+```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Project Structure
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- `app/` - Next.js App Router
+  - `page.tsx` - Main landing page with redirect button
+  - `layout.tsx` - Root layout with metadata and fonts
+  - `globals.css` - Global styles and animations
+- `public/` - Static assets
+
+## License
+
+This project is for demonstration purposes only. All rights reserved.
+
+## Creator
+
+Created by [Your Name]
+
+---
+
+Designed as a gateway to the Sacral Track music platform - a store and social network for music artists, sound producers, musicians, bands, DJs, and music lovers.
